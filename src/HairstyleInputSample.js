@@ -9,5 +9,10 @@ export const HairstyleInput = [
         id: 2,
         label: 'Description',
         placeholder: 'trending hair for men in 2023'
+    },
+    {
+        id: 3,
+        label: 'Url',
+        placeholder: 'abc'
     }
 ]
