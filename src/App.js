@@ -11,6 +11,8 @@ import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
 import Hair from "./pages/Hair";
 import Statistic from "./pages/Statistic";
+import New from "./pages/new/New";
+import {HairstyleInput} from "./HairstyleInputSample";
 
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -78,6 +80,8 @@ const App = () => {
                 {/*<Route path="/employees" element={<Employees />} />*/}
                 {/*<Route path="/customers" element={<Customers />} />*/}
                 <Route path="/Hair" element={<Hair />} />
+                <Route path="/Hair/new" element={<New inputs={HairstyleInput} title={"Add new hairstyle"}/>}/>
+
 
                 {/*/!* apps  *!/*/}
                 {/*<Route path="/kanban" element={<Kanban />} />*/}
