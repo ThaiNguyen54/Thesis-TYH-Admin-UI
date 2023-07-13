@@ -59,7 +59,7 @@ const Hair = () => {
 
   useEffect(() => {
     const getHair = () => {
-      Axios.get('http://localhost:3001/ver1/hairstyle').then((response) => {
+      Axios.get('http://localhost:7000/ver1/hairstyle').then((response) => {
         console.log(response.data.Hairstyles)
         setHairData(response.data.Hairstyles)
       })
