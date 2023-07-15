@@ -9,14 +9,46 @@ const New = ({ title }) => {
   const [inputData, setInputData] = useState({ Name: '', Des: '' });
   const navigate = useNavigate();
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    axios.post(`http://localhost:3001/ver1/hairstyle/${file.name}`, inputData)
-      .then(() => {
-        alert('Data Added Successfully');
-        navigate('/');
-      }).catch((err) => console.log(err));
+  const handleSelectFile = (e) => setFile(e.target.files[0]);
+
+  const handleUpload = async () => {
+    console.log("ok")
+    try {
+      const data = new FormData();
+      data.append("my_file", file);
+      data.name = file.name;
+      data.Name = inputData.Name;
+      data.Des = inputData.Des;
+      const res = await axios.post("http://localhost:7000/ver1/hairstyle/", data);
+    } catch (error) {
+      alert(error.message);
+    }
   }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const data = new FormData();
+      data.append("my_file", file);
+      data.name = file.name;
+      data.append("Name", inputData.Name)
+      data.append("Des", inputData.Des)
+      // data.Name = inputData.Name;
+      // data.Des = inputData.Des;
+      console.log(data)
+      const res = await axios.post("http://localhost:7000/ver1/hairstyle/", data);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   axios.post(`http://localhost:3001/ver1/hairstyle/${file.name}`, inputData)
+  //     .then(() => {
+  //       alert('Data Added Successfully');
+  //       navigate('/');
+  //     }).catch((err) => console.log(err));
+  // }
 
   return (
   // eslint-disable-next-line react/react-in-jsx-scope
@@ -44,7 +76,6 @@ const New = ({ title }) => {
           </div>
           {/* eslint-disable-next-line react/react-in-jsx-scope */}
           <div className="right">
-            {/* eslint-disable-next-line react/react-in-jsx-scope */}
             <form onSubmit={handleSubmit}>
               {/* eslint-disable-next-line react/react-in-jsx-scope */}
               <div className="formInput">
@@ -55,10 +86,11 @@ const New = ({ title }) => {
                 </label>
                 {/* eslint-disable-next-line react/react-in-jsx-scope */}
                 <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: 'none' }}
+                    type="file"
+                    id="file"
+                    onChange={ handleSelectFile }
+                    style={{ display: 'none' }}
+                    multiple={false}
                 />
               </div>
 
@@ -84,6 +116,12 @@ const New = ({ title }) => {
               </div>
               {/* eslint-disable-next-line react/button-has-type,react/react-in-jsx-scope */}
               <button>Add</button>
+              {/*{file && (*/}
+              {/*    <>*/}
+              {/*      <button onClick={handleUpload}>Add</button>*/}
+              {/*    </>*/}
+              {/*)}*/}
+
             </form>
           </div>
         </div>
