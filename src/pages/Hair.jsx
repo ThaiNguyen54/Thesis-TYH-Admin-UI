@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Button, Table } from 'antd';
+import { Button, Table, Modal } from 'antd';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Axios from 'axios';
@@ -8,6 +8,24 @@ import { Link } from 'react-router-dom';
 import { Header } from '../components';
 
 const Hair = () => {
+
+  const onDelete = (record) => {
+    Modal.confirm({
+      title: 'Are you sure to delete this hairstyle?',
+      okText: 'Yes',
+      okType: 'danger',
+      onOk:() => {
+        setHairData(pre => {
+          console.log(pre.filter((hair) => hair._id !== record._id))
+          return pre.filter((hair) => hair._id !== record._id)
+        })
+        Axios.delete(`http://localhost:7000/ver1/hairstyle/${record._id}`).then(response => {
+          console.log(response)
+        })
+      },
+    })
+  }
+
   const HairColumns = [
     {
       key: '1',
@@ -36,10 +54,10 @@ const Hair = () => {
     {
       key: '5',
       title: 'Action',
-      render: () => (
+      render: (record) => (
         <>
           <EditOutlined style={{ marginRight: '10px' }} />
-          <DeleteOutlined />
+          <DeleteOutlined onClick={ () => { onDelete(record)} } style={{ color: 'red' }}/>
         </>
       ),
     },

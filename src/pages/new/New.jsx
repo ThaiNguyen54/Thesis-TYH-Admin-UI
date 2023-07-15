@@ -11,19 +11,6 @@ const New = ({ title }) => {
 
   const handleSelectFile = (e) => setFile(e.target.files[0]);
 
-  const handleUpload = async () => {
-    console.log("ok")
-    try {
-      const data = new FormData();
-      data.append("my_file", file);
-      data.name = file.name;
-      data.Name = inputData.Name;
-      data.Des = inputData.Des;
-      const res = await axios.post("http://localhost:7000/ver1/hairstyle/", data);
-    } catch (error) {
-      alert(error.message);
-    }
-  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -36,19 +23,15 @@ const New = ({ title }) => {
       // data.Name = inputData.Name;
       // data.Des = inputData.Des;
       console.log(data)
-      const res = await axios.post("http://localhost:7000/ver1/hairstyle/", data);
+      const res = await axios.post("http://localhost:7000/ver1/hairstyle/", data).then(result => {
+        alert("Added a new hairstyle successfully")
+        navigate('/Hair')
+      });
+
     } catch (error) {
       alert(error.message);
     }
   }
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   axios.post(`http://localhost:3001/ver1/hairstyle/${file.name}`, inputData)
-  //     .then(() => {
-  //       alert('Data Added Successfully');
-  //       navigate('/');
-  //     }).catch((err) => console.log(err));
-  // }
 
   return (
   // eslint-disable-next-line react/react-in-jsx-scope
