@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { Button, Table, Modal } from 'antd';
+import { Button, Table, Modal, Input } from 'antd';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Header } from '../components';
+import { useNavigate } from "react-router-dom";
 
 const Hair = () => {
 
@@ -24,6 +25,11 @@ const Hair = () => {
         })
       },
     })
+  }
+
+  const onEdit = (record) => {
+    setEditing(true)
+    setEditingHair({...record})
   }
 
   const HairColumns = [
@@ -56,13 +62,19 @@ const Hair = () => {
       title: 'Action',
       render: (record) => (
         <>
-          <EditOutlined style={{ marginRight: '10px' }} />
-          <DeleteOutlined onClick={ () => { onDelete(record)} } style={{ color: 'red' }}/>
+          <EditOutlined onClick={ () => { onEdit(record) }} style={{ marginRight: '10px' }} />
+          <DeleteOutlined onClick={ () => { onDelete(record) }} style={{ color: 'red' }}/>
         </>
       ),
     },
   ];
+
   const [HairDataSource, setHairData] = useState('');
+  const [isEditing, setEditing] = useState(false)
+  const [editingHair, setEditingHair] = useState(null)
+  const [EditData, setEditData] = useState({Name: '', Des: ''})
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getHair = () => {
@@ -81,10 +93,38 @@ const Hair = () => {
       <Link to="/Hair/new">
         <Button>Add a new hairstyle</Button>
       </Link>
-
       <Table style={{ marginTop: '10px' }} columns={HairColumns} dataSource={HairDataSource} />
+      <Modal
+      title={isEditing ? `Editing ${editingHair.Name} hairstyle` : "Editing hairstyle"}
+      okText="Save"
+      okType="default"
+      visible={isEditing}
+      onCancel={() => {
+        setEditing(false)
+      }}
+      onOk={ async (e) => {
+        try {
+          e.preventDefault()
+          await Axios.put(`http://localhost:7000/ver1/hairstyle/${editingHair._id}`, EditData)
+              .then(result => {
+                alert("Update a new hairstyle successfully")
+                navigate("/Hair")
+              })
+          setEditing(false)
+        } catch (error) {
+          alert(error.message)
+        }
+      }}>
+        <h2><b>Name</b></h2>
+        <Input placeholder={isEditing ? `${editingHair.Name}` : ''} onChange={ (e) => setEditData({
+          Name: e.target.value.toString() === "" ? editingHair.Name : e.target.value
+        })}/>
+        <h2 style={{ marginTop: '10px' }}><b>Description</b></h2>
+        <Input placeholder={isEditing ? `${editingHair.Des}`: ''} onChange={ (e) => setEditData({
+          Des: e.target.value.toString() === "" ? editingHair.Des : e.target.value
+        })}/>
+      </Modal>
     </div>
   );
 };
-
 export default Hair;
