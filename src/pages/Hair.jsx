@@ -7,6 +7,7 @@ import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Header } from '../components';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Hair = () => {
 
@@ -30,6 +31,23 @@ const Hair = () => {
   const onEdit = (record) => {
     setEditing(true)
     setEditingHair({...record})
+  }
+
+  const handleSelectFile = (e) => setFile(e.target.files[0])
+
+  const handleUpload = async () => {
+    try {
+      setLoading(true);
+      const data = new FormData();
+      data.append("my_file", file);
+      const result = await axios.post("http://localhost:7000/ver1/hairstyle/upload", data);
+      setRes(result.data);
+      console.log(res)
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   const HairColumns = [
@@ -73,6 +91,9 @@ const Hair = () => {
   const [isEditing, setEditing] = useState(false)
   const [editingHair, setEditingHair] = useState(null)
   const [EditData, setEditData] = useState({Name: '', Des: ''})
+  const [file, setFile] = useState(null)
+  const [res, setRes] = useState({})
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -105,11 +126,14 @@ const Hair = () => {
       onOk={ async (e) => {
         try {
           e.preventDefault()
-          await Axios.put(`http://localhost:7000/ver1/hairstyle/${editingHair._id}`, EditData)
-              .then(result => {
-                alert("Update a new hairstyle successfully")
-                navigate("/Hair")
-              })
+          await handleUpload()
+          console.log(res)
+          console.log(res.url)
+          // await Axios.put(`http://localhost:7000/ver1/hairstyle/${editingHair._id}`, EditData)
+          //     .then(result => {
+          //       alert("Update a new hairstyle successfully")
+          //       navigate("/Hair")
+          //     })
           setEditing(false)
         } catch (error) {
           alert(error.message)
@@ -120,9 +144,20 @@ const Hair = () => {
           Name: e.target.value.toString() === "" ? editingHair.Name : e.target.value
         })}/>
         <h2 style={{ marginTop: '10px' }}><b>Description</b></h2>
-        <Input placeholder={isEditing ? `${editingHair.Des}`: ''} onChange={ (e) => setEditData({
+        <Input htmlFor='file' style={{ marginBottom: '10px'}} placeholder={isEditing ? `${editingHair.Des}`: ''} onChange={ (e) => setEditData({
           Des: e.target.value.toString() === "" ? editingHair.Des : e.target.value
         })}/>
+
+        <label >
+          {' '}
+          <b style={{ marginRight: '5px' }}>Select Image</b>
+        </label>
+        <input
+            id='file'
+            type={'file'}
+            onChange={handleSelectFile}
+            multiple={false}
+        />
       </Modal>
     </div>
   );
