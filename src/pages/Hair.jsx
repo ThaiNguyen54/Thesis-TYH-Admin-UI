@@ -116,39 +116,54 @@ const Hair = () => {
       </Link>
       <Table style={{ marginTop: '10px' }} columns={HairColumns} dataSource={HairDataSource} />
       <Modal
-      title={isEditing ? `Editing ${editingHair.Name} hairstyle` : "Editing hairstyle"}
-      okText="Save"
-      okType="default"
-      visible={isEditing}
-      onCancel={() => {
-        setEditing(false)
-      }}
-      onOk={ async (e) => {
-        try {
-          e.preventDefault()
-          await handleUpload()
-          console.log(res)
-          console.log(res.url)
-          // await Axios.put(`http://localhost:7000/ver1/hairstyle/${editingHair._id}`, EditData)
-          //     .then(result => {
-          //       alert("Update a new hairstyle successfully")
-          //       navigate("/Hair")
-          //     })
-          setEditing(false)
-        } catch (error) {
-          alert(error.message)
-        }
-      }}>
-        <h2><b>Name</b></h2>
-        <Input placeholder={isEditing ? `${editingHair.Name}` : ''} onChange={ (e) => setEditData({
-          Name: e.target.value.toString() === "" ? editingHair.Name : e.target.value
-        })}/>
-        <h2 style={{ marginTop: '10px' }}><b>Description</b></h2>
-        <Input htmlFor='file' style={{ marginBottom: '10px'}} placeholder={isEditing ? `${editingHair.Des}`: ''} onChange={ (e) => setEditData({
-          Des: e.target.value.toString() === "" ? editingHair.Des : e.target.value
-        })}/>
+          title={isEditing ? `Editing ${editingHair.Name} hairstyle` : "Editing hairstyle"}
+          okText="Save"
+          okType="default"
+          visible={isEditing}
+          onCancel={() => {
+            setEditing(false)
+          }}
+          onOk={ async (e) => {
+            try {
+              e.preventDefault()
+              const data = new FormData();
+              if (file !== null) {
+                console.log('file is not null')
+                setLoading(true);
+                data.append("my_file", file);
+                data.append("isUpdateImage", true)
+              } else {
+                console.log('file is null')
+                data.append("isUpdateImage", false)
+              }
 
-        <label >
+              const updateData = JSON.stringify(EditData)
+              data.append('update', updateData)
+
+              await Axios.put(`http://localhost:7000/ver1/hairstyle/${editingHair._id}`, data)
+                  .then(async result => {
+                    alert("Update a new hairstyle successfully")
+                    await setFile(null)
+                    navigate("/Hair")
+                  })
+              setEditing(false)
+            } catch (error) {
+              alert(error.message)
+            }
+          }}
+          destroyOnClose={true}
+      >
+        <h2><b>Name</b></h2>
+        <Input placeholder={isEditing ? `${editingHair.Name}` : ''} onChange={ (e) => setEditData((prevData) => ({
+          ...prevData, Name: e.target.value.toString() === '' ? editingHair.Name : e.target.value
+        }))}/>
+
+        <h2 style={{ marginTop: '10px' }}><b>Description</b></h2>
+        <Input style={{ marginBottom: '10px'}} placeholder={isEditing ? `${editingHair.Des}`: ''} onChange={ (e) => setEditData(prevData => ({
+          ...prevData, Des: e.target.value.toString() === '' ? editingHair.Des : e.target.value
+        }))}/>
+
+        <label htmlFor='file'>
           {' '}
           <b style={{ marginRight: '5px' }}>Select Image</b>
         </label>
@@ -158,6 +173,7 @@ const Hair = () => {
             onChange={handleSelectFile}
             multiple={false}
         />
+
       </Modal>
     </div>
   );
