@@ -96,15 +96,15 @@ const Hair = () => {
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
+  const getHair = () => {
+    Axios.get('http://localhost:7000/ver1/hairstyle').then((response) => {
+      // eslint-disable-next-line no-console
+      console.log(response.data.Hairstyles);
+      setHairData(response.data.Hairstyles);
+    });
+  };
 
   useEffect(() => {
-    const getHair = () => {
-      Axios.get('http://localhost:7000/ver1/hairstyle').then((response) => {
-        // eslint-disable-next-line no-console
-        console.log(response.data.Hairstyles);
-        setHairData(response.data.Hairstyles);
-      });
-    };
     getHair();
   }, []);
 
@@ -150,6 +150,7 @@ const Hair = () => {
                     navigate("/Hair")
                   })
               setEditing(false)
+              getHair()
             } catch (error) {
               alert(error.message)
             }
