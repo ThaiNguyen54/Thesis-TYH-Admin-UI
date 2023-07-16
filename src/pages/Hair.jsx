@@ -126,17 +126,20 @@ const Hair = () => {
           onOk={ async (e) => {
             try {
               e.preventDefault()
+              for (const key in EditData) {
+                if (EditData[key] === '' || EditData[key] === undefined) {
+                  delete EditData[key]
+                }
+              }
+              console.log(EditData)
               const data = new FormData();
               if (file !== null) {
-                console.log('file is not null')
                 setLoading(true);
                 data.append("my_file", file);
                 data.append("isUpdateImage", true)
               } else {
-                console.log('file is null')
                 data.append("isUpdateImage", false)
               }
-
               const updateData = JSON.stringify(EditData)
               data.append('update', updateData)
 
@@ -154,14 +157,13 @@ const Hair = () => {
           destroyOnClose={true}
       >
         <h2><b>Name</b></h2>
-        <Input placeholder={isEditing ? `${editingHair.Name}` : ''} onChange={ (e) => setEditData((prevData) => ({
-          ...prevData, Name: e.target.value.toString() === '' ? editingHair.Name : e.target.value
-        }))}/>
+        <Input placeholder={isEditing ? `${editingHair.Name}` : ''}
+               onChange={ (e) => setEditData({...EditData, Name: e.target.value !== '' ? e.target.value : editingHair.Name})}/>
 
         <h2 style={{ marginTop: '10px' }}><b>Description</b></h2>
-        <Input style={{ marginBottom: '10px'}} placeholder={isEditing ? `${editingHair.Des}`: ''} onChange={ (e) => setEditData(prevData => ({
-          ...prevData, Des: e.target.value.toString() === '' ? editingHair.Des : e.target.value
-        }))}/>
+        <Input style={{ marginBottom: '10px'}}
+               placeholder={isEditing ? `${editingHair.Des}`: ''}
+               onChange={ (e) => setEditData({...EditData, Des: e.target.value !== '' ? e.target.value : editingHair.Des})}/>
 
         <label htmlFor='file'>
           {' '}
