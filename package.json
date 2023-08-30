@@ -1,6 +1,7 @@
 {
   "name": "project_syncfusion_dashboard",
   "version": "0.1.0",
+  "homepage": "https://demo.wetop.me/shair/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -29,7 +30,7 @@
     "sass": "^1.63.6"
   },
   "scripts": {
-    "start": "set PORT=7006 && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

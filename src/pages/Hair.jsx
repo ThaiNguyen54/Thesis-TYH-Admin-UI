@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { Header } from '../components';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import AxiosClient from "../axiosclient";
 
 const Hair = () => {
 
@@ -21,7 +22,7 @@ const Hair = () => {
           console.log(pre.filter((hair) => hair._id !== record._id))
           return pre.filter((hair) => hair._id !== record._id)
         })
-        Axios.delete(`http://localhost:7000/ver1/hairstyle/${record._id}`).then(response => {
+        AxiosClient.delete(`/ver1/hairstyle/${record._id}`).then(response => {
           console.log(response)
         })
       },
@@ -40,7 +41,7 @@ const Hair = () => {
       setLoading(true);
       const data = new FormData();
       data.append("my_file", file);
-      const result = await axios.post("http://localhost:7000/ver1/hairstyle/upload", data);
+      const result = await AxiosClient.post("/ver1/hairstyle", data);
       setRes(result.data);
       console.log(res)
     } catch (error) {
@@ -97,7 +98,7 @@ const Hair = () => {
 
   const navigate = useNavigate()
   const getHair = () => {
-    Axios.get('http://localhost:7000/ver1/hairstyle').then((response) => {
+    AxiosClient.get('/ver1/hairstyle').then((response) => {
       // eslint-disable-next-line no-console
       console.log(response.data.Hairstyles);
       setHairData(response.data.Hairstyles);
@@ -142,13 +143,22 @@ const Hair = () => {
               }
               const updateData = JSON.stringify(EditData)
               data.append('update', updateData)
+              data.append('old_name', editingHair.Name)
 
-              await Axios.put(`http://localhost:7000/ver1/hairstyle/${editingHair._id}`, data)
+              await axios.put(`https://geminisoftvn.ddns.net:7001/ver1/hairstyle/${editingHair._id}`, data)
                   .then(async result => {
                     alert("Update a new hairstyle successfully")
                     await setFile(null)
                     navigate("/Hair")
                   })
+
+              // await axios.put(`https://localhost:7001/ver1/hairstyle/${editingHair._id}`, data)
+              //     .then(async result => {
+              //       alert("Update a new hairstyle successfully")
+              //       await setFile(null)
+              //       navigate("/Hair")
+              //     })
+
               setEditing(false)
               getHair()
             } catch (error) {

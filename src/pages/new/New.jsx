@@ -3,6 +3,7 @@ import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUpload
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import AxiosClient from "../../axiosclient";
 
 const New = ({ title }) => {
   const [file, setFile] = useState('');
@@ -23,10 +24,16 @@ const New = ({ title }) => {
       // data.Name = inputData.Name;
       // data.Des = inputData.Des;
       console.log(data)
-      const res = await axios.post("http://localhost:7000/ver1/hairstyle/", data).then(result => {
+
+      const res = await axios.post("https://geminisoftvn.ddns.net:7001/ver1/hairstyle", data).then(result => {
         alert("Added a new hairstyle successfully")
         navigate('/Hair')
       });
+
+      // const res = await axios.post("https://localhost:7001/ver1/hairstyle", data).then(result => {
+      //   alert("Added a new hairstyle successfully")
+      //   navigate('/Hair')
+      // });
 
     } catch (error) {
       alert(error.message);
