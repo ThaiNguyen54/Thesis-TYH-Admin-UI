@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9ec6ee06-6626-40f6-b23f-ebc942e2ffe0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/new/New.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/new/New.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +47,12 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Study\Thesis\Thesis-TYH-Admin-UI\src\pages\login" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.start">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -66,8 +75,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -82,7 +91,10 @@
       <workItem from="1696932043887" duration="8809000" />
       <workItem from="1696955740793" duration="1736000" />
       <workItem from="1696990831960" duration="8378000" />
-      <workItem from="1697001331083" duration="2970000" />
+      <workItem from="1697001331083" duration="3123000" />
+      <workItem from="1697020911705" duration="330000" />
+      <workItem from="1697026262090" duration="24000" />
+      <workItem from="1697026841085" duration="7660000" />
     </task>
     <servers />
   </component>

@@ -4,6 +4,7 @@
   "homepage": "https://demo.wetop.me/shair/",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.0",
@@ -26,6 +27,7 @@
     "react-cool-form": "^0.4.1",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
+    "react-parallax-tilt": "^1.7.170",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "sass": "^1.63.6"

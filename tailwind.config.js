@@ -7,6 +7,9 @@ module.exports = {
       body: ['Open Sans', 'sans-serif'],
     },
     extend: {
+      fontFamily: {
+        'poppins': ['Poppins', 'sans-serif']
+      },
       fontSize: {
         14: '14px',
       },
@@ -31,9 +34,15 @@ module.exports = {
         1000: '1000px',
         1200: '1200px',
         1400: '1400px',
+        '40-r': '40rem',
+        '35-r': '35rem',
+        '30-r': '30rem'
       },
       height: {
         80: '80px',
+        '40-r': '40rem',
+        '35-r': '35rem',
+        '30-r': '30rem'
       },
       minHeight: {
         590: '590px',
@@ -42,7 +51,13 @@ module.exports = {
         'hero-pattern':
           "url('https://i.ibb.co/MkvLDfb/Rectangle-4389.png')",
       },
+      boxShadow: {
+        '5xl': '20px 20px 50px rgba(0, 0, 0, 0.5)',
+      }
     },
+  },
+  variants: {
+    extend: {},
   },
   plugins: [],
 };
