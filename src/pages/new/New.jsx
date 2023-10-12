@@ -2,7 +2,7 @@ import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUpload
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {Form, Input, Button, Space} from 'antd'
+import {Form, Input, Button, Space, Divider, Radio, Image} from 'antd'
 import {Header} from "../../components";
 import { message, Upload } from "antd";
 import {blue} from "@mui/material/colors";
@@ -47,35 +47,67 @@ const New = ({ title }) => {
   return (
       <div className="New">
         <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+
           <Header title="Add new hairstyle"/>
-          <Form.Item align="center" style={{ width: "100%"}} label="Hairstyle name">
-            <Input onChange={(e) => setInputData({ ...inputData, Name: e.target.value })}/>
-          </Form.Item>
 
-          <Form.Item style={{ width: "100%"}} label="Hairstyle description">
-            <TextArea rows={4} onChange={(e) => setInputData({ ...inputData, Des: e.target.value })}/>
-          </Form.Item>
+          <Form
+            name="wrap"
+            labelCol={{ flex: '200px' }}
+            labelAlign="left"
+            labelWrap
+            wrapperCol={{ flex: 1 }}
+            colon={true}
 
-          <Form.Item style={{ width: "50%"}} label="Upload hairstyle image">
-            <input type="file" name="file" id="file" onChange={ handleSelectFile } multiple={false}/>
-          </Form.Item>
+          >
+            <Form.Item align="center" style={{ width: "100%"}} label="Hairstyle name">
+              <Input onChange={(e) => setInputData({ ...inputData, Name: e.target.value })}/>
+            </Form.Item>
 
-          <Form.Item>
-            <img style={{ width: "20%", height: "20%"}}
-                 src={
-                   file
-                       ? URL.createObjectURL(file)
-                       : 'https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg'
-                 }
-                 alt=""
-            />
-          </Form.Item>
+            <Form.Item style={{ width: "100%"}} label="Hairstyle of celebrity">
+              <Input rows={4} onChange={(e) => setInputData({ ...inputData, Des: e.target.value })}/>
+            </Form.Item>
 
-          <Form.Item label="">
-            <Button type="default" htmlType="submit" style={{ width: "10%"}} onClick={ handleSubmit }>
-              Add
-            </Button>
-          </Form.Item>
+            <Form.Item style={{ width: "100%"}} label="Hairstyle category">
+              <Input rows={4} onChange={(e) => setInputData({ ...inputData, Des: e.target.value })}/>
+            </Form.Item>
+
+            <Form.Item style={{ width: "100%"}} label="Hairstyle description">
+              <TextArea rows={4} onChange={(e) => setInputData({ ...inputData, Des: e.target.value })}/>
+            </Form.Item>
+
+            <Form.Item label="Trending">
+              <Radio.Group>
+                <Radio value="1">Yes</Radio>
+                <Radio value="0">No</Radio>
+              </Radio.Group>
+            </Form.Item>
+
+            <Form.Item label="Upload hairstyle image">
+              <input type="file" name="file" id="file" onChange={ handleSelectFile } multiple={false}/>
+            </Form.Item>
+
+            <Form.Item>
+              <Image
+                  width={350}
+                  src={
+                    file
+                        ? URL.createObjectURL(file)
+                        : 'https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg'
+                  }
+              ></Image>
+            </Form.Item>
+
+            <Divider/>
+
+            <Form.Item label="">
+              <Button type="default" htmlType="submit" style={{ width: "10%"}} onClick={ handleSubmit }>
+                Add
+              </Button>
+            </Form.Item>
+          </Form>
+
+
+
         </div>
 
       </div>
