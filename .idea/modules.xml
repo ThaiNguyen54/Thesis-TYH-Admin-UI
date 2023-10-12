@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Admin Page.iml" filepath="$PROJECT_DIR$/.idea/Admin Page.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Thesis-TYH-API/.idea/Mobile-Dev-Final-Project-API.iml" filepath="$PROJECT_DIR$/../Thesis-TYH-API/.idea/Mobile-Dev-Final-Project-API.iml" />
     </modules>
   </component>
 </project>

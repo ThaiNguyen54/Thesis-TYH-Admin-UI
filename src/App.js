@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
@@ -15,9 +15,10 @@ import New from './pages/new/New';
 import { HairstyleInput } from './HairstyleInputSample';
 import Login from "./pages/login/login";
 
-let is_login = false;
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
+
+  const [is_login, setIsLogin] = useState(false)
 
   useEffect(() => {
     const currentThemeColor = localStorage.getItem('colorMode');
@@ -28,12 +29,16 @@ const App = () => {
     }
   }, []);
 
+  const handleLogin = (isLoggedIn) => {
+    setIsLogin(isLoggedIn)
+  }
+
   if (is_login === false) {
     return (
         <div>
           <BrowserRouter basename='/shair'>
             <Routes>
-              <Route path="/" element={(<Login />)} />
+              <Route path="/" element={(<Login onLogin={ handleLogin }/>)} />
             </Routes>
           </BrowserRouter>
         </div>
