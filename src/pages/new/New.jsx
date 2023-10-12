@@ -2,27 +2,43 @@ import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUpload
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {Form, Input, Button, Space, Divider, Radio, Image} from 'antd'
+import {Form, Input, Button, Space, Divider, Radio, Image, Modal, Spin} from 'antd'
 import {Header} from "../../components";
 import { message, Upload } from "antd";
 import {blue} from "@mui/material/colors";
+import api from "../../api/api";
+import {RadioChangeEvent} from "antd";
 
 
 const New = ({ title }) => {
   const [file, setFile] = useState('');
-  const [inputData, setInputData] = useState({ Name: '', Des: '' });
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const [inputData, setInputData] = useState({
+    Name: '',
+    Des: '',
+    Trending: 0,
+    Celeb: '',
+    Category: ''
+  });
   const navigate = useNavigate();
 
-  const FormItem = Form.Item;
   const { TextArea } = Input;
-  const { Dragger } = Upload;
 
   const handleSelectFile = (e) => setFile(e.target.files[0]);
+
+  const onChangeRadio = (e: RadioChangeEvent) => {
+    console.log('trending:', e.target.value)
+    setInputData({ ...inputData, Trending: e.target.value })
+    console.log('this is trending value: ', inputData.Trending)
+
+  }
 
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
+      setIsModalOpen(true)
       const data = new FormData();
       data.append("my_file", file);
       console.log('this is file')
@@ -30,16 +46,26 @@ const New = ({ title }) => {
       data.name = file.name;
       data.append("Name", inputData.Name)
       data.append("Des", inputData.Des)
-      // data.Name = inputData.Name;
-      // data.Des = inputData.Des;
+      data.append("Trending", inputData.Trending)
+      data.append("Celeb", inputData.Celeb)
+      data.append("Category", inputData.Category)
       console.log(data)
-      const res = await axios.post("https://geminisoftvn.ddns.net:7001/ver1/hairstyle", data).then(result => {
-        alert("Added a new hairstyle successfully")
-        navigate('/Hair')
+      const res = await axios.post(api.ADD_HAIR, data).then(result => {
+        // alert("Added a new hairstyle successfully")
+        setIsModalOpen(false)
+        Modal.success({
+          title: 'Added a new hairstyle successfully',
+          onOk() {navigate('/Hair')},
+          okType: "default"
+        })
       });
-
     } catch (error) {
-      alert(error.message);
+      setIsModalOpen(false)
+      Modal.error({
+        title: 'Add the new hairstyle failed',
+        content: 'An error occurred. Please try again',
+        okType: "default"
+      })
     }
   }
 
@@ -64,11 +90,11 @@ const New = ({ title }) => {
             </Form.Item>
 
             <Form.Item style={{ width: "100%"}} label="Hairstyle of celebrity">
-              <Input rows={4} onChange={(e) => setInputData({ ...inputData, Des: e.target.value })}/>
+              <Input rows={4} onChange={(e) => setInputData({ ...inputData, Celeb: e.target.value })}/>
             </Form.Item>
 
             <Form.Item style={{ width: "100%"}} label="Hairstyle category">
-              <Input rows={4} onChange={(e) => setInputData({ ...inputData, Des: e.target.value })}/>
+              <Input rows={4} onChange={(e) => setInputData({ ...inputData, Category: e.target.value })}/>
             </Form.Item>
 
             <Form.Item style={{ width: "100%"}} label="Hairstyle description">
@@ -77,8 +103,8 @@ const New = ({ title }) => {
 
             <Form.Item label="Trending">
               <Radio.Group>
-                <Radio value="1">Yes</Radio>
-                <Radio value="0">No</Radio>
+                <Radio onChange={(e) => setInputData({...inputData, Trending: e.target.value})} value={1}>Yes</Radio>
+                <Radio onChange={(e) => setInputData({...inputData, Trending: e.target.value})} value={0}>No</Radio>
               </Radio.Group>
             </Form.Item>
 
@@ -105,6 +131,20 @@ const New = ({ title }) => {
               </Button>
             </Form.Item>
           </Form>
+
+
+          <Modal
+            title="Adding The New Hairstyle"
+            open={isModalOpen}
+            footer={null}
+            closable={false}
+            keyboard={false}
+            style={{ textAlign: "center"}}
+          >
+            <Spin size="large"/>
+
+          </Modal>
+
 
 
 

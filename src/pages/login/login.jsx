@@ -4,6 +4,7 @@ import {Button} from "antd";
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import api from "../../api/api";
 const Login = ( {onLogin} ) => {
 
     const userRef = useRef()
@@ -22,7 +23,7 @@ const Login = ( {onLogin} ) => {
         console.log(credential)
         try {
             const res = await axios.post(
-                "http://localhost:7001/shair-engine/ver1/admin/login",
+                api.LOGIN,
                 credential
             )
             onLogin(true)
