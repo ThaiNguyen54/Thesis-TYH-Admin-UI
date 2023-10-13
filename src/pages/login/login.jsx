@@ -60,7 +60,7 @@ const Login = ( {onLogin} ) => {
             </Tilt>
 
             <Modal
-                title="Loging you in"
+                title="Logging you in"
                 open={isModalOpen}
                 footer={null}
                 closable={false}
