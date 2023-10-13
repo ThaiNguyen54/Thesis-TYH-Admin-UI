@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Button, Table, Modal, Input, Rate} from 'antd';
+import {Button, Table, Modal, Input, Rate, Image, Tag} from 'antd';
 import api from "../api/api";
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Axios from 'axios';
@@ -7,12 +7,23 @@ import { Link } from 'react-router-dom';
 import { Header } from '../components';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {render} from "react-dom";
 
 const Hair = () => {
 
   const [isClick, setClick] = useState(false)
+  const [HairDataSource, setHairData] = useState([]);
+  const [isEditing, setEditing] = useState(false)
+  const [editingHair, setEditingHair] = useState(null)
+  const [EditData, setEditData] = useState({Name: '', Des: ''})
+  const [file, setFile] = useState(null)
+  const [res, setRes] = useState({})
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  const [selectedRowKeys, setSelectedRowKeys] = useState([])
 
   const onDelete = (record) => {
+    console.log(HairDataSource)
     Modal.confirm({
       title: 'Are you sure to delete this hairstyle?',
       okText: 'Yes',
@@ -46,6 +57,7 @@ const Hair = () => {
       }
       const result = await Axios.put(api.SET_TRENDING + `/${record._id}`, data)
       console.log(result)
+      getHair()
     } catch (err) {
       console.log(err)
     }
@@ -72,61 +84,76 @@ const Hair = () => {
 
   const HairColumns = [
     {
-      key: '1',
+      key: '_id',
       title: 'ID',
       dataIndex: '_id',
     },
     {
-      key: '2',
+      key: 'Image',
       title: 'Image',
       dataIndex: 'Url',
       width: 200,
       height: 200,
-      render: (t, r) => <img src={`${r.Url}`} alt="customer image" />,
+      render: (t, r) => <Image src={`${r.Url}`} alt="customer image" />,
     },
     {
-      key: '3',
+      key: 'Name',
       title: 'Name',
       dataIndex: 'Name',
     },
     {
-      key: '4',
+      key: 'Des',
       title: 'Description',
       dataIndex: 'Des',
     },
     {
-      key: '5',
+      key: 'Action',
       title: 'Action',
       render: (record) => (
         <>
           <EditOutlined onClick={ () => { onEdit(record) }} style={{ marginRight: '10px' }} />
           <DeleteOutlined onClick={ () => { onDelete(record) }} style={{ color: 'red' }}/>
-          <p>{record.Trending}</p>
-          <Rate onChange={onSetTrending(record)} defaultValue={record.Trending} count={1} style={{ marginLeft: '6px' }}/>
+          <Tag
+              color={record.Trending === 1 ? 'green' : 'warning'}
+              style={{ marginLeft: '6px', cursor: 'pointer'}}
+              onClick={ () => { onSetTrending(record) }}
+          >
+            {record.Trending === 1 ? 'Trending' : 'Not Trending'}
+          </Tag>
         </>
       ),
     },
   ];
 
-  const [HairDataSource, setHairData] = useState('');
-  const [isEditing, setEditing] = useState(false)
-  const [editingHair, setEditingHair] = useState(null)
-  const [EditData, setEditData] = useState({Name: '', Des: ''})
-  const [file, setFile] = useState(null)
-  const [res, setRes] = useState({})
-  const [loading, setLoading] = useState(false)
 
-  const navigate = useNavigate()
-  const getHair = () => {
-    Axios.get(api.GET_HAIR).then((response) => {
-      // eslint-disable-next-line no-console
+
+  const getHair = async () => {
+    await Axios.get(api.GET_HAIR).then((response) => {
       console.log(response.data.Hairstyles);
       setHairData(response.data.Hairstyles);
+
     });
   };
+  const rowSelection = {
+    onSelect: (selectedRowKeys) => {
+      console.log('Trending: ', selectedRowKeys)
+      // setSelectedRowKeys(pre => {
+      //   console.log(pre.filter((hair) => hair._id !== selectedRowKeys))
+      //   // return pre.filter((hair) => hair._id !== selectedRowKeys)
+      // })
+    },
+    onSelectInvert: (selectedRowKeys) => {
+      console.log('Not Trending: ', selectedRowKeys)
+    },
+    columnTitle: "Trending"
+  }
+
 
   useEffect(() => {
     getHair();
+    const selectedKeys = HairDataSource.filter(record => record.Trending === 1).map(record => record._id)
+    setSelectedRowKeys(selectedKeys)
+    console.log(selectedRowKeys)
   }, []);
 
   return (
@@ -135,7 +162,12 @@ const Hair = () => {
       <Link to="/Hair/new">
         <Button>Add a new hairstyle</Button>
       </Link>
-      <Table style={{ marginTop: '10px' }} columns={HairColumns} dataSource={HairDataSource} />
+      <Table
+          rowKey='_id'
+          style={{ marginTop: '10px' }}
+          columns={HairColumns}
+          dataSource={HairDataSource}
+      />
       <Modal
           title={isEditing ? `Editing ${editingHair.Name} hairstyle` : "Editing hairstyle"}
           okText="Save"
@@ -198,7 +230,6 @@ const Hair = () => {
             onChange={handleSelectFile}
             multiple={false}
         />
-
       </Modal>
     </div>
   );
