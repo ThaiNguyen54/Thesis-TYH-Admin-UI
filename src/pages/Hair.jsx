@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Button, Table, Modal, Input, Rate, Image, Tag} from 'antd';
+import {Button, Table, Modal, Input, Rate, Image, Tag, message} from 'antd';
 import api from "../api/api";
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Axios from 'axios';
@@ -212,7 +212,8 @@ const Hair = () => {
 
               await Axios.put(api.UPDATE_HAIR + `/${editingHair._id}`, data)
                   .then(async result => {
-                    alert("Update a new hairstyle successfully")
+                    // alert("Update a new hairstyle successfully")
+                    message.success('Update a new hairstyle successfully')
                     await setFile(null)
                     navigate("/Hair")
                   })
@@ -220,7 +221,8 @@ const Hair = () => {
               setEditing(false)
               getHair()
             } catch (error) {
-              alert(error.message)
+              // alert(error.message)
+              message.error(error.message)
             }
           }}
           destroyOnClose={true}
