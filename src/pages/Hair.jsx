@@ -15,7 +15,7 @@ const Hair = () => {
   const [HairDataSource, setHairData] = useState([]);
   const [isEditing, setEditing] = useState(false)
   const [editingHair, setEditingHair] = useState(null)
-  const [EditData, setEditData] = useState({Name: '', Des: ''})
+  const [EditData, setEditData] = useState({Name: '', Des: '', Celeb: '', Category: ''})
   const [file, setFile] = useState(null)
   const [res, setRes] = useState({})
   const [loading, setLoading] = useState(false)
@@ -105,6 +105,16 @@ const Hair = () => {
       key: 'Des',
       title: 'Description',
       dataIndex: 'Des',
+    },
+    {
+      key: 'Celeb',
+      title: 'Celebrity',
+      dataIndex: 'Celeb'
+    },
+    {
+      key: 'Category',
+      title: 'Category',
+      dataIndex: 'Category'
     },
     {
       key: 'Action',
@@ -197,12 +207,16 @@ const Hair = () => {
               data.append('update', updateData)
               data.append('old_name', editingHair.Name)
 
+              console.log('this is update data: ', updateData)
+              console.log(editingHair._id)
+
               await Axios.put(api.UPDATE_HAIR + `/${editingHair._id}`, data)
                   .then(async result => {
                     alert("Update a new hairstyle successfully")
                     await setFile(null)
                     navigate("/Hair")
                   })
+              setEditData({})
               setEditing(false)
               getHair()
             } catch (error) {
@@ -219,6 +233,18 @@ const Hair = () => {
         <Input style={{ marginBottom: '10px'}}
                placeholder={isEditing ? `${editingHair.Des}`: ''}
                onChange={ (e) => setEditData({...EditData, Des: e.target.value !== '' ? e.target.value : editingHair.Des})}/>
+
+        <h2 style={{ marginTop: '10px' }}><b>Celebrity</b></h2>
+        <Input style={{ marginBottom: '10px'}}
+               placeholder={isEditing ? `${editingHair.Celeb}` : ''}
+               onChange={ (e) => setEditData({...EditData, Celeb: e.target.value !== '' ? e.target.value : editingHair.Celeb})}
+        />
+
+        <h2 style={{ marginTop: '10px' }}><b>Category</b></h2>
+        <Input style={{ marginBottom: '10px'}}
+               placeholder={isEditing ? `${editingHair.Category}` : ''}
+               onChange={ (e)=> setEditData({...EditData, Category: e.target.value !== '' ? e.target.value : editingHair.Category})}
+        />
 
         <label htmlFor='file'>
           {' '}

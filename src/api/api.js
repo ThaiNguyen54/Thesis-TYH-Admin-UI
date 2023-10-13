@@ -4,7 +4,8 @@
 //     "UPDATE_HAIR": "https://geminisoftvn.ddns.net:7001/ver1/hairstyle",
 //     "DELETE_HAIR": "https://geminisoftvn.ddns.net:7001/ver1/hairstyle",
 //     "GENERATE_HAIR": "https://geminisoftvn.ddns.net:7001/ver1/generate_hair",
-//     "GET_HAIR": "https://geminisoftvn.ddns.net:7001/ver1/hairstyle"
+//     "GET_HAIR": "https://geminisoftvn.ddns.net:7001/ver1/hairstyle",
+//     "SET_TRENDING": "https://geminisoftvn.ddns.net:7001/ver1/hairstyle/trending"
 // }
 
 const api = {
