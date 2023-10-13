@@ -1,7 +1,7 @@
 import './login.css'
 import Tilt from 'react-parallax-tilt';
-import {Button} from "antd";
-import {useEffect, useRef, useState} from "react";
+import {Button, message, Modal, Spin} from "antd";
+import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import api from "../../api/api";
@@ -13,10 +13,12 @@ const Login = ( {onLogin} ) => {
 
     const [errMsg, setErrMsg] = useState('')
     const [success, setSuccess] = useState('')
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [inputCredential, setInputCredential] = useState({UserName: '', Password: ''})
 
     const handleLogin = async (event) => {
         event.preventDefault()
+        setIsModalOpen(true)
         const credential = {}
         credential["UserName"] = inputCredential.UserName
         credential["Password"] = inputCredential.Password
@@ -26,6 +28,7 @@ const Login = ( {onLogin} ) => {
                 api.LOGIN,
                 credential
             )
+            setIsModalOpen(false)
             onLogin(true)
             navigate('/')
 
@@ -33,13 +36,15 @@ const Login = ( {onLogin} ) => {
             if (err.response) {
                 console.log(err.response.data)
                 setErrMsg('Wrong credential! Please input again')
+            } else {
+                setIsModalOpen(false)
+                message.error(err.message)
             }
-
         }
     }
 
     return (
-        <div className="App bg-gray-900 h-screen w-screen relative overflow-hidden flex justify-center items-center">
+        <div style={{textAlign: "center"}} className="App bg-gray-900 h-screen w-screen relative overflow-hidden flex justify-center items-center">
             <div className="h-40-r w-40-r bg-gradient-to-r from-green-400 to-blue-500 rounded-full absolute left-2/3 -top-56 transform rotate-160 animate-pulse"></div>
             <div className="h-35-r w-35-r bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-full absolute top-96 -left-20 transform rotate-180 animate-pulse"></div>
             <Tilt>
@@ -53,6 +58,18 @@ const Login = ( {onLogin} ) => {
                     </form>
                 </div>
             </Tilt>
+
+            <Modal
+                title="Loging you in"
+                open={isModalOpen}
+                footer={null}
+                closable={false}
+                keyboard={false}
+                style={{ textAlign: "center"}}
+            >
+                <Spin size="large"/>
+
+            </Modal>
         </div>
     )
 };
