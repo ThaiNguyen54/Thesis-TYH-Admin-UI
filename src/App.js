@@ -19,10 +19,15 @@ const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
 
   const [is_login, setIsLogin] = useState(false)
+  let isLoggedIn
+
 
   useEffect(() => {
     const currentThemeColor = localStorage.getItem('colorMode');
     const currentThemeMode = localStorage.getItem('themeMode');
+    setIsLogin(window.localStorage.getItem('isLoggedIn'))
+    console.log(isLoggedIn)
+
     if (currentThemeColor && currentThemeMode) {
       setCurrentColor(currentThemeColor);
       setCurrentMode(currentThemeMode);
@@ -32,8 +37,9 @@ const App = () => {
   const handleLogin = (isLoggedIn) => {
     setIsLogin(isLoggedIn)
   }
+  console.log('app.js')
 
-  if (is_login === false) {
+  if (is_login === 'false') {
     return (
         <div>
           <BrowserRouter basename='/shair'>
@@ -88,7 +94,7 @@ const App = () => {
 
                   <Routes>
                     {/* dashboard  */}
-                    <Route path="/" element={(<Statistic />)} />
+                    <Route path="/" element={(<Hair />)} />
                     {/* <Route path="/ecommerce" element={(<Ecommerce />)} /> */}
                     <Route path="/Statistic" element={(<Statistic />)} />
 

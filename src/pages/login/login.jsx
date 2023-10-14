@@ -28,6 +28,9 @@ const Login = ( {onLogin} ) => {
                 api.LOGIN,
                 credential
             )
+
+            window.localStorage.setItem('token', res.data.token)
+            window.localStorage.setItem('isLoggedIn', true)
             setIsModalOpen(false)
             onLogin(true)
             navigate('/')

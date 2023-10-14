@@ -471,16 +471,16 @@ export const employeesGrid = [
 ];
 
 export const links = [
-  {
-    title: 'Dashboard',
-    links: [
-      {
-        name: 'Statistic',
-        icon: <AiOutlineLineChart />,
-      },
-    ],
-  },
-
+  // {
+  //   title: 'Dashboard',
+  //   links: [
+  //     {
+  //       name: 'Statistic',
+  //       icon: <AiOutlineLineChart />,
+  //     },
+  //   ],
+  // },
+  //
   {
     title: 'Management',
     links: [
