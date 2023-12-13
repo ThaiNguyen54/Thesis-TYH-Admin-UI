@@ -1,18 +1,18 @@
 import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {Form, Input, Button, Space, Divider, Radio, Image, Modal, Spin} from 'antd'
 import {Header} from "../../components";
-import { message, Upload } from "antd";
-import {blue} from "@mui/material/colors";
-import api from "../../api/api";
 import {RadioChangeEvent} from "antd";
+import constant from "../../constants/constants";
+import api from "../../api/api";
 
 
 const New = ({ title }) => {
   const [file, setFile] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const fileInputRef = useRef(null)
 
   const [inputData, setInputData] = useState({
     Name: '',
@@ -25,13 +25,25 @@ const New = ({ title }) => {
 
   const { TextArea } = Input;
 
-  const handleSelectFile = (e) => setFile(e.target.files[0]);
+  const handleSelectFile = (e) => {
+    if (constant.ALLOW_IMAGE_TYPE.includes(e.target.files[0].type)) {
+      setFile(e.target.files[0]);
+    } else {
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+      setFile(null)
+      setIsModalOpen(false)
+      Modal.error({
+        title: 'Invalid file type',
+        content: 'Invalid image type, accept images in the following format: .jpg, .jpeg, .png',
+        okType: "default"
+      })
+    }
+  }
 
   const onChangeRadio = (e: RadioChangeEvent) => {
-    console.log('trending:', e.target.value)
     setInputData({ ...inputData, Trending: e.target.value })
-    console.log('this is trending value: ', inputData.Trending)
-
   }
 
 
@@ -59,6 +71,7 @@ const New = ({ title }) => {
           okType: "default"
         })
       });
+
     } catch (error) {
       setIsModalOpen(false)
       Modal.error({
@@ -109,7 +122,7 @@ const New = ({ title }) => {
             </Form.Item>
 
             <Form.Item label="Upload hairstyle image">
-              <input type="file" name="file" id="file" onChange={ handleSelectFile } multiple={false}/>
+              <input type="file" name="file" id="file" onChange={ handleSelectFile } multiple={false} ref={fileInputRef}/>
             </Form.Item>
 
             <Form.Item>
@@ -144,12 +157,7 @@ const New = ({ title }) => {
             <Spin size="large"/>
 
           </Modal>
-
-
-
-
         </div>
-
       </div>
 
   );
