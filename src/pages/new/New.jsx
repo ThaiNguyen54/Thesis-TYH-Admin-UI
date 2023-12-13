@@ -26,6 +26,7 @@ const New = ({ title }) => {
   const { TextArea } = Input;
 
   const handleSelectFile = (e) => {
+    // setFile(e.target.files[0]);
     if (constant.ALLOW_IMAGE_TYPE.includes(e.target.files[0].type)) {
       setFile(e.target.files[0]);
     } else {
