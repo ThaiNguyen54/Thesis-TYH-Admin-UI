@@ -1,22 +1,44 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
-
+import {useNavigate} from "react-router-dom";
 import { Button } from '.';
 import { userProfileData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import avatar from '../data/cat1.jpeg';
+import Axios from "axios";
+import api from "../api/api";
+import constant from "../constants/constants";
+import { jwtDecode } from "jwt-decode";
+import {Input, Modal} from "antd";
 
 
 const UserProfile = () => {
-  const { currentColor } = useStateContext();
+    const { currentColor } = useStateContext();
+    const [superAdminUpdatePass, setSuperAdminUpdatePass] = useState(false)
+    const navigate = useNavigate();
+    const decodedToken = jwtDecode(localStorage.getItem(constant.TOKEN))
+    let role = ''
 
+    if (decodedToken.Role === 1) {
+        role = 'Super Admin'
+    } else if (decodedToken.Role === 2) {
+        role = 'Admin'
+    }
 
-
+    const onClick = (index) => {
+        if (index === 0) {
+            navigate('/changepass')
+        } else if (index === 1) {
+            navigate('/changedisplayname')
+        } else if (index === 2) {
+            console.log('update avatar')
+        }
+    }
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
-        <p className="font-semibold text-lg dark:text-gray-200">User Profile</p>
+        <p className="font-semibold text-lg dark:text-gray-200">Setting</p>
         <Button
           icon={<MdOutlineCancel />}
           color="rgb(153, 171, 180)"
@@ -32,9 +54,9 @@ const UserProfile = () => {
           alt="user-profile"
         />
         <div>
-          <p className="font-semibold text-xl dark:text-gray-200"> Thai Nguyen </p>
-          <p className="text-gray-500 text-sm dark:text-gray-400">  Administrator   </p>
-          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> TYH@gmail.com </p>
+          <p className="font-semibold text-xl dark:text-gray-200"> {localStorage.getItem(constant.DISPLAY_NAME)} </p>
+          <p className="text-gray-500 text-sm dark:text-gray-400">  {role}   </p>
+          {/*<p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> TYH@gmail.com </p>*/}
         </div>
       </div>
       <div>
@@ -44,6 +66,7 @@ const UserProfile = () => {
               type="button"
               style={{ color: item.iconColor, backgroundColor: item.iconBg }}
               className=" text-xl rounded-lg p-3 hover:bg-light-gray"
+              onClick={() => onClick(index)}
             >
               {item.icon}
             </button>

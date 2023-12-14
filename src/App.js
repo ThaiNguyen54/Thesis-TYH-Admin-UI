@@ -7,13 +7,14 @@ import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
 import { Ecommerce } from './pages';
 import Hair from './pages/Hair';
 import './App.css';
-
 import { useStateContext } from './contexts/ContextProvider';
-
 import Statistic from './pages/Statistic';
 import New from './pages/new/New';
 import { HairstyleInput } from './HairstyleInputSample';
 import Login from "./pages/login/login";
+import UpdatePassword from "./pages/updatePassword/updatePassword";
+import UpdateDisplayName from "./pages/updateDisplayName/UpdateDisplayName";
+import ViewAllAdmin from "./pages/viewAllAdmins/ViewAllAdmins";
 
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -96,7 +97,7 @@ const App = () => {
                     {/* dashboard  */}
                     <Route path="/" element={(<Hair />)} />
                     {/* <Route path="/ecommerce" element={(<Ecommerce />)} /> */}
-                    <Route path="/Statistic" element={(<Statistic />)} />
+                    {/*<Route path="/Statistic" element={(<Statistic />)} />*/}
 
                     {/* pages  */}
                     {/* <Route path="/orders" element={<Orders />} /> */}
@@ -104,6 +105,9 @@ const App = () => {
                     {/* <Route path="/customers" element={<Customers />} /> */}
                     <Route path="/Hair" element={<Hair />} />
                     <Route path="/Hair/new" element={<New inputs={HairstyleInput} title="Add new hairstyle" />} />
+                    <Route path="/changepass" element={<UpdatePassword />} />
+                    <Route path="/changedisplayname" element={<UpdateDisplayName />} />
+                    <Route path="/Admin" element={<ViewAllAdmin />} />
 
                     {/* /!* apps  *!/ */}
                     {/* <Route path="/kanban" element={<Kanban />} /> */}

@@ -8,6 +8,7 @@ import { Header } from '../components';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {render} from "react-dom";
+import constant from "../constants/constants";
 
 const Hair = () => {
 
@@ -33,7 +34,11 @@ const Hair = () => {
           console.log(pre.filter((hair) => hair._id !== record._id))
           return pre.filter((hair) => hair._id !== record._id)
         })
-        Axios.delete(api.DELETE_HAIR + `/${record._id}`).then(response => {
+        Axios.delete(api.DELETE_HAIR + `/${record._id}`, {
+          headers: {
+            access_token: localStorage.getItem(constant.TOKEN)
+          }
+        }).then(response => {
           console.log(response)
         })
       },
@@ -55,14 +60,16 @@ const Hair = () => {
         data = {Trending: 1}
         record.Trending = 1
       }
-      const result = await Axios.put(api.SET_TRENDING + `/${record._id}`, data)
+      const result = await Axios.put(api.SET_TRENDING + `/${record._id}`, data, {
+        headers: {
+          access_token: localStorage.getItem(constant.TOKEN)
+        }
+      })
       console.log(result)
       getHair()
     } catch (err) {
       console.log(err)
     }
-
-
   }
 
   const handleSelectFile = (e) => setFile(e.target.files[0])
@@ -138,10 +145,9 @@ const Hair = () => {
 
 
   const getHair = async () => {
-    await Axios.get(api.GET_HAIR).then((response) => {
+    await Axios.get(api.GET_HAIR ).then((response) => {
       console.log(response.data.Hairstyles);
       setHairData(response.data.Hairstyles);
-
     });
   };
   const rowSelection = {
@@ -210,7 +216,11 @@ const Hair = () => {
               console.log('this is update data: ', updateData)
               console.log(editingHair._id)
 
-              await Axios.put(api.UPDATE_HAIR + `/${editingHair._id}`, data)
+              await Axios.put(api.UPDATE_HAIR + `/${editingHair._id}`, data, {
+                headers: {
+                  access_token: localStorage.getItem(constant.TOKEN)
+                }
+              })
                   .then(async result => {
                     // alert("Update a new hairstyle successfully")
                     message.success('Update a new hairstyle successfully')

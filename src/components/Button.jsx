@@ -2,6 +2,7 @@ import React from 'react';
 import {useNavigate} from "react-router-dom";
 
 import { useStateContext } from '../contexts/ContextProvider';
+import constant from "../constants/constants";
 
 const Button = ({ isLogout, icon, bgColor, color, bgHoverColor, size, text, borderRadius, width }) => {
   const { setIsClicked, initialState } = useStateContext();
@@ -9,8 +10,7 @@ const Button = ({ isLogout, icon, bgColor, color, bgHoverColor, size, text, bord
 
   const handleLogout = (e) => {
     e.preventDefault()
-    console.log('logout')
-    window.localStorage.setItem('isLoggedIn', false)
+    window.localStorage.setItem(constant.IS_LOGGED_IN, false)
     navigate('/')
     window.location.reload()
   }

@@ -6,9 +6,12 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { links } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
+import {jwtDecode} from "jwt-decode";
+import constant from "../constants/constants";
 
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
+  const decodedToken = jwtDecode(localStorage.getItem(constant.TOKEN))
 
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
@@ -39,27 +42,41 @@ const Sidebar = () => {
             </TooltipComponent>
           </div>
           <div className="mt-10 ">
-            {links.map((item) => (
-              <div key={item.title}>
-                <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
-                  {item.title}
-                </p>
-                {item.links.map((link) => (
-                  <NavLink
-                    to={`/${link.name}`}
-                    key={link.name}
-                    onClick={handleCloseSideBar}
-                    style={({ isActive }) => ({
-                      backgroundColor: isActive ? currentColor : '',
+            {links.map((item) => {
+
+              let filteredLinks = item.links.map(link => ({ ...link }))
+
+              if (decodedToken.Role !== 1) {
+                filteredLinks = item.links.filter((link) => {
+                  return link.name !== "Admin"
+                })
+              }
+
+              return (
+                  <div key={item.title}>
+                    <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
+                      {item.title}
+                    </p>
+                    {filteredLinks.map((link) => {
+                      return (
+                          <NavLink
+                              to={`/${link.name}`}
+                              key={link.name}
+                              onClick={handleCloseSideBar}
+                              style={({isActive}) => ({
+                                backgroundColor: isActive ? currentColor : '',
+                              })}
+                              className={({isActive}) => (isActive ? activeLink : normalLink)}
+                          >
+                            {link.icon}
+                            <span className="capitalize ">{link.name}</span>
+                          </NavLink>
+
+                      )
                     })}
-                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
-                  >
-                    {link.icon}
-                    <span className="capitalize ">{link.name}</span>
-                  </NavLink>
-                ))}
-              </div>
-            ))}
+                  </div>
+              )
+            })}
           </div>
         </>
       )}

@@ -1,13 +1,15 @@
 import React from 'react';
+import { LockOutlined } from '@ant-design/icons'
 import { AiOutlineLineChart } from 'react-icons/ai';
 import {
+  FiUsers,
   FiBarChart,
   FiCreditCard,
   FiStar,
   FiShoppingCart,
   FiCrosshair,
 } from 'react-icons/fi';
-import { BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
+import {BsImages, BsLock, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
 import { MdOutlineSupervisorAccount } from 'react-icons/md';
 import { HiOutlineRefresh } from 'react-icons/hi';
 import { TiTick } from 'react-icons/ti';
@@ -496,6 +498,10 @@ export const links = [
         name: 'Hair',
         icon: <FiCrosshair />,
       },
+      {
+        name: 'Admin',
+        icon: <FiUsers />,
+      }
     ],
   },
   // {
@@ -849,23 +855,23 @@ export const themeColors = [
 
 export const userProfileData = [
   {
-    icon: <BsCurrencyDollar />,
-    title: 'My Profile',
-    desc: 'Account Settings',
+    icon: <BsLock />,
+    title: 'Update Password',
+    desc: 'update your password',
     iconColor: '#03C9D7',
     iconBg: '#E5FAFB',
   },
   {
     icon: <BsShield />,
-    title: 'My Inbox',
-    desc: 'Messages & Emails',
+    title: 'Update Display Name',
+    desc: 'update your display name here',
     iconColor: 'rgb(0, 194, 146)',
     iconBg: 'rgb(235, 250, 242)',
   },
   {
-    icon: <FiCreditCard />,
-    title: 'My Tasks',
-    desc: 'To-do and Daily Tasks',
+    icon: <BsImages />,
+    title: 'Update Avatar',
+    desc: 'update your avatar here',
     iconColor: 'rgb(255, 244, 229)',
     iconBg: 'rgb(254, 201, 15)',
   },

@@ -5,6 +5,8 @@ import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import api from "../../api/api";
+import constant from "../../constants/constants";
+import {jwtDecode} from "jwt-decode";
 const Login = ( {onLogin} ) => {
 
     const userRef = useRef()
@@ -29,13 +31,17 @@ const Login = ( {onLogin} ) => {
                 credential
             )
 
-            window.localStorage.setItem('token', res.data.token)
-            window.localStorage.setItem('isLoggedIn', true)
+            const decodedToken = jwtDecode(res.data.token)
+
+            window.localStorage.setItem(constant.DISPLAY_NAME, decodedToken.DisplayName)
+            window.localStorage.setItem(constant.TOKEN, res.data.token)
+            window.localStorage.setItem(constant.IS_LOGGED_IN, true)
             setIsModalOpen(false)
             onLogin(true)
             navigate('/')
 
         } catch (err) {
+            setIsModalOpen(false)
             if (err.response) {
                 console.log(err.response.data)
                 setErrMsg('Wrong credential! Please input again')
