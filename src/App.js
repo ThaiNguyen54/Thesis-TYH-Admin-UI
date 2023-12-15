@@ -15,6 +15,7 @@ import Login from "./pages/login/login";
 import UpdatePassword from "./pages/updatePassword/updatePassword";
 import UpdateDisplayName from "./pages/updateDisplayName/UpdateDisplayName";
 import ViewAllAdmin from "./pages/viewAllAdmins/ViewAllAdmins";
+import UpdateAvatar from "./pages/updateAvatar/UpdateAvatar";
 
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -108,6 +109,7 @@ const App = () => {
                     <Route path="/changepass" element={<UpdatePassword />} />
                     <Route path="/changedisplayname" element={<UpdateDisplayName />} />
                     <Route path="/Admin" element={<ViewAllAdmin />} />
+                    <Route path="/changeavatar" element={<UpdateAvatar />} />
 
                     {/* /!* apps  *!/ */}
                     {/* <Route path="/kanban" element={<Kanban />} /> */}

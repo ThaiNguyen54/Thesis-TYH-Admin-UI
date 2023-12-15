@@ -21,6 +21,7 @@ const api = {
     "SET_TRENDING": `https://localhost:7001/${authEndpoint}/hairstyle/trending`,
     "UPDATE_PASS": `https://localhost:7001/${authEndpoint}/admin/pass`,
     "UPDATE_DISPLAYNAME": `https://localhost:7001/${authEndpoint}/admin`,
+    "UPDATE_AVATAR": `https://localhost:7001/${authEndpoint}/admin`,
     "UPDATE_ADMIN": `https://localhost:7001/${authEndpoint}/admin`,
     "DELETE_ADMIN": `https://localhost:7001/${authEndpoint}/admin`,
     "GET_ADMIN": `https://localhost:7001/${authEndpoint}/admin`,

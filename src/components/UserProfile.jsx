@@ -14,7 +14,7 @@ import {Input, Modal} from "antd";
 
 const UserProfile = () => {
     const { currentColor } = useStateContext();
-    const [superAdminUpdatePass, setSuperAdminUpdatePass] = useState(false)
+    const { setIsClicked, initialState } = useStateContext();
     const navigate = useNavigate();
     const decodedToken = jwtDecode(localStorage.getItem(constant.TOKEN))
     let role = ''
@@ -31,8 +31,9 @@ const UserProfile = () => {
         } else if (index === 1) {
             navigate('/changedisplayname')
         } else if (index === 2) {
-            console.log('update avatar')
+            navigate('/changeavatar')
         }
+        setIsClicked(initialState)
     }
 
   return (
@@ -50,7 +51,7 @@ const UserProfile = () => {
       <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
         <img
           className="rounded-full h-24 w-24"
-          src={avatar}
+          src={localStorage.getItem(constant.AVATAR)}
           alt="user-profile"
         />
         <div>

@@ -34,6 +34,8 @@ const Login = ( {onLogin} ) => {
             const decodedToken = jwtDecode(res.data.token)
 
             window.localStorage.setItem(constant.DISPLAY_NAME, decodedToken.DisplayName)
+            window.localStorage.setItem(constant.AVATAR, decodedToken.AvatarUrl)
+            window.localStorage.setItem(constant.ID, decodedToken.id)
             window.localStorage.setItem(constant.TOKEN, res.data.token)
             window.localStorage.setItem(constant.IS_LOGGED_IN, true)
             setIsModalOpen(false)

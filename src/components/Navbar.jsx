@@ -75,7 +75,7 @@ const Navbar = () => {
           >
             <img
               className="rounded-full w-8 h-8"
-              src={avatar}
+              src={localStorage.getItem(constant.AVATAR)}
               alt="user-profile"
             />
             <p>
