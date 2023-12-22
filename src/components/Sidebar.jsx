@@ -11,7 +11,10 @@ import constant from "../constants/constants";
 
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
-  const decodedToken = jwtDecode(localStorage.getItem(constant.TOKEN))
+  let decodedToken
+  if (localStorage.getItem(constant.TOKEN) !== null) {
+    decodedToken = jwtDecode(localStorage.getItem(constant.TOKEN))
+  }
 
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
@@ -46,10 +49,12 @@ const Sidebar = () => {
 
               let filteredLinks = item.links.map(link => ({ ...link }))
 
-              if (decodedToken.Role !== 1) {
-                filteredLinks = item.links.filter((link) => {
-                  return link.name !== "Admin"
-                })
+              if (decodedToken !== undefined) {
+                if (decodedToken.Role !== 1) {
+                  filteredLinks = item.links.filter((link) => {
+                    return link.name !== "Admin"
+                  })
+                }
               }
 
               return (

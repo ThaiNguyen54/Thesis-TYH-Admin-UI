@@ -63,7 +63,11 @@ const New = ({ title }) => {
       data.append("Celeb", inputData.Celeb)
       data.append("Category", inputData.Category)
       console.log(data)
-      const res = await axios.post(api.ADD_HAIR, data).then(result => {
+      const res = await axios.post(api.ADD_HAIR, data, {
+        headers: {
+          access_token: localStorage.getItem(constant.TOKEN)
+        }
+      }).then(result => {
         // alert("Added a new hairstyle successfully")
         setIsModalOpen(false)
         Modal.success({

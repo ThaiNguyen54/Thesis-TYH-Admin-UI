@@ -34,7 +34,7 @@ const Navbar = () => {
 
   const [isProfileOpen, setIsProfileOpen] = useState(false)
 
-  const decodedToken = jwtDecode(localStorage.getItem(constant.TOKEN))
+  // const decodedToken = jwtDecode(localStorage.getItem(constant.TOKEN))
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);

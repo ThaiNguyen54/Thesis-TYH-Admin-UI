@@ -16,6 +16,7 @@ import UpdatePassword from "./pages/updatePassword/updatePassword";
 import UpdateDisplayName from "./pages/updateDisplayName/UpdateDisplayName";
 import ViewAllAdmin from "./pages/viewAllAdmins/ViewAllAdmins";
 import UpdateAvatar from "./pages/updateAvatar/UpdateAvatar";
+import constant from "./constants/constants";
 
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -27,8 +28,7 @@ const App = () => {
   useEffect(() => {
     const currentThemeColor = localStorage.getItem('colorMode');
     const currentThemeMode = localStorage.getItem('themeMode');
-    setIsLogin(window.localStorage.getItem('isLoggedIn'))
-    console.log(isLoggedIn)
+    setIsLogin(window.localStorage.getItem(constant.IS_LOGGED_IN))
 
     if (currentThemeColor && currentThemeMode) {
       setCurrentColor(currentThemeColor);
@@ -39,9 +39,8 @@ const App = () => {
   const handleLogin = (isLoggedIn) => {
     setIsLogin(isLoggedIn)
   }
-  console.log('app.js')
 
-  if (is_login === 'false') {
+  if (!localStorage.getItem(constant.IS_LOGGED_IN)) {
     return (
         <div>
           <BrowserRouter basename='/shair'>

@@ -11,6 +11,10 @@ const Button = ({ isLogout, icon, bgColor, color, bgHoverColor, size, text, bord
   const handleLogout = (e) => {
     e.preventDefault()
     window.localStorage.setItem(constant.IS_LOGGED_IN, false)
+    window.localStorage.removeItem(constant.IS_LOGGED_IN)
+    window.localStorage.removeItem(constant.TOKEN)
+    window.localStorage.removeItem(constant.AVATAR)
+    window.localStorage.removeItem(constant.DISPLAY_NAME)
     navigate('/')
     window.location.reload()
   }
