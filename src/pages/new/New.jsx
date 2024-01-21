@@ -112,7 +112,10 @@ const New = ({ title }) => {
             </Form.Item>
 
             <Form.Item style={{ width: "100%"}} label="Hairstyle category">
-              <Input rows={4} onChange={(e) => setInputData({ ...inputData, Category: e.target.value })}/>
+              <Radio.Group>
+                <Radio onChange={(e) => setInputData({...inputData, Category: e.target.value})} value={"Male"}>Male</Radio>
+                <Radio onChange={(e) => setInputData({...inputData, Category: e.target.value})} value={"Female"}>Female</Radio>
+              </Radio.Group>
             </Form.Item>
 
             <Form.Item style={{ width: "100%"}} label="Hairstyle description">

@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ec6ee06-6626-40f6-b23f-ebc942e2ffe0" name="Changes" comment="" />
+    <list default="true" id="9ec6ee06-6626-40f6-b23f-ebc942e2ffe0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Thesis-TYH-API/controller/HairStyleController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Thesis-TYH-API/controller/HairStyleController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thesis-TYH-API/route/HairStyleRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Thesis-TYH-API/route/HairStyleRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thesis-TYH-API/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Thesis-TYH-API/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/new/New.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/new/New.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,25 +41,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Study/Thesis/Thesis-TYH-Admin-UI&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.build.executor&quot;: &quot;Run&quot;,
-    &quot;npm.start.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/Study/Thesis/Thesis-TYH-Admin-UI",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.build.executor": "Run",
+    "npm.start.executor": "Run",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Study\Thesis\Thesis-TYH-Admin-UI\src" />
@@ -60,7 +67,7 @@
       <recent name="D:\Study\Thesis\Thesis-TYH-Admin-UI\src\pages\login" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager" selected="npm.start">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -83,8 +90,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -128,7 +135,15 @@
       <workItem from="1702452991140" duration="4601000" />
       <workItem from="1702540483344" duration="23576000" />
       <workItem from="1702609128118" duration="5067000" />
-      <workItem from="1703211974418" duration="2082000" />
+      <workItem from="1703211974418" duration="3248000" />
+      <workItem from="1703215274839" duration="2000" />
+      <workItem from="1705328691788" duration="1215000" />
+      <workItem from="1705393920886" duration="2219000" />
+      <workItem from="1705585675715" duration="38000" />
+      <workItem from="1705586180894" duration="9000" />
+      <workItem from="1705586190941" duration="477000" />
+      <workItem from="1705752718691" duration="4000" />
+      <workItem from="1705829303431" duration="1123000" />
     </task>
     <servers />
   </component>

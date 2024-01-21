@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Button, Table, Modal, Input, Rate, Image, Tag, message} from 'antd';
+import {Button, Table, Modal, Input, Rate, Image, Tag, message, Radio} from 'antd';
 import api from "../api/api";
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Axios from 'axios';
@@ -253,10 +253,11 @@ const Hair = () => {
         />
 
         <h2 style={{ marginTop: '10px' }}><b>Category</b></h2>
-        <Input style={{ marginBottom: '10px'}}
-               placeholder={isEditing ? `${editingHair.Category}` : ''}
-               onChange={ (e)=> setEditData({...EditData, Category: e.target.value !== '' ? e.target.value : editingHair.Category})}
-        />
+        <Radio.Group style={{ marginBottom: '10px'}}>
+          <Radio onChange={(e) => setEditData({...EditData, Category: e.target.value})} value={"Male"}>Male</Radio>
+          <Radio onChange={(e) => setEditData({...EditData, Category: e.target.value})} value={"Female"}>Female</Radio>
+        </Radio.Group>
+        <br/>
 
         <label htmlFor='file'>
           {' '}
