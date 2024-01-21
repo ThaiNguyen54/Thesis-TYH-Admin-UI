@@ -140,9 +140,27 @@ const Hair = () => {
         </>
       ),
     },
+    // {
+    //   key: 'CreatedBy',
+    //   title: 'CreatedBy',
+    //   dataIndex: 'CreatedBy'
+    // },
+    // {
+    //   key: 'CreatedAt',
+    //   title: 'CreatedAt',
+    //   dataIndex: 'CreatedAt'
+    // },
+    // {
+    //   key: 'UpdatedBy',
+    //   title: 'UpdatedBy',
+    //   dataIndex: 'UpdatedBy'
+    // },
+    // {
+    //   key: 'UpdatedAt',
+    //   title: 'UpdatedAt',
+    //   dataIndex: 'UpdatedAt'
+    // },
   ];
-
-
 
   const getHair = async () => {
     await Axios.get(api.GET_HAIR ).then((response) => {
